@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Overview from './app/screens/OverviewScreen.tsx';
-import TaskDetails from './app/screens/TaskDetailsScreen';
-import AddTaskScreen from './app/screens/AddTaskScreen.tsx';
-import { TaskProvider } from './app/contexts/Tasks.Context.tsx';
+import Overview from '../screens/OverviewScreen';
+import TaskDetails from '../screens/TaskDetailsScreen';
+import AddTaskScreen from '../screens/AddTaskScreen';
+import { TaskProvider } from '../contexts/Tasks.Context';
 
 
 // This line initializes the stack navigator.
@@ -25,8 +25,8 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={scrOptions}>
           <Stack.Screen name="Overview" options={{ headerShown: false}} component={Overview} />
-          <Stack.Screen name="Task Details" component={TaskDetails} />
-          <Stack.Screen name="Add Task" component={AddTaskScreen} />
+          <Stack.Screen name="TaskDetails" component={TaskDetails} />
+          <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </TaskProvider>
