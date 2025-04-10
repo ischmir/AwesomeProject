@@ -41,8 +41,6 @@ const Overview = ({ navigation }) => {
                 />
             </View>
 
-            {/* Simple Seperator */}
-
             <View style={styles.seperator} />
 
             {/* Task List */}
@@ -53,38 +51,16 @@ const Overview = ({ navigation }) => {
                   <FlatList
                     style={styles.tasksContainer}
                     data={filteredTasks}
-                    keyExtractor={(item) => item.id} // Ensure each task has a unique id
+                    keyExtractor={(item) => item.id} 
                     renderItem={({ item }) => (
                       <TaskItem
                         id={item.id}
-                        title={item.title} // Pass the task title
+                        title={item.title}
                         task={item}
                         onPressGoToDetails={()=>navigation.navigate('Task Details', {task: item})}
                       />
                     )}
                   />
-
-                    // <FlatList
-                    //     style={styles.tasksContainer}
-                    //     data={tasks}
-                    //     // renderItem={({ item }) => <TaskItem title={item} onPressGoToDetails={() => navigation.navigate("TaskDetails", {task: item})} />}
-                    //     renderItem={({ item }) => <TaskItem title={item} onPressGoToDetails={()=>navigation.navigate('Task Details', {task: item})} />}
-                    // />
-                    // <FlatList
-                    //     style={styles.tasksContainer}
-                    //     data={tasks}
-                    //     keyExtractor={(item) => item.id}
-                    //     // renderItem={({ item }) => <TaskItem title={item} onPressGoToDetails={() => navigation.navigate("TaskDetails", {task: item})} />}
-                    //     renderItem={({ item }) => (
-                    //       <View>
-                    //         <Text
-                    //           style={styles.taskTitle}
-                    //           onPress={() => navigation.navigate('TaskDetails', { task: item })} // Navigate to TaskDetails
-                    //         >
-                    //           {item.title}</Text>
-                    //       </View>
-                    //     )}
-                    // />
                 )
             };
 

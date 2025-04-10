@@ -10,7 +10,7 @@ const AddTaskScreen = ({ navigation }) => {
     const [dueDate, setDueDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
 
-    {/* Warns user if insufficient input and or adds task to the list */}
+    {/* Alerts users fill out fields or adds task to the list */}
     const handleAddTask = () => {
         if (title.trim() === '' || desc.trim() === '') {
             alert('Please fill in all fields.');

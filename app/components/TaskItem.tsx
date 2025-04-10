@@ -10,14 +10,6 @@ export const TaskItem = (props: any) => {
     const { removeTask } = useTasks();
 
     return (
-        /** Components views */
-        // <View style={styles.task}>
-        //     <View style={styles.taskItem}>
-        //         <Text style={styles.taskText}>{title}</Text>
-        //     </View>
-        //     <Button title={'Done'} onPress={() => removeTask(title)} />
-        // </View>
-
         <Pressable style={styles.task} onPress={onPressGoToDetails} >
             <View style={styles.taskItem} >
                 <Text style={styles.taskText} > {title} </Text>
