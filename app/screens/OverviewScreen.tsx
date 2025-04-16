@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Text, View, TextInput, Button, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { TaskItem } from '../components/TaskItem';
@@ -7,12 +6,12 @@ import { useTasks } from '../contexts/Tasks.Context';
 const Overview = ({ navigation }) => {
 
     const { tasks, clearTasks } = useTasks();
-    const [newTask] = useState<string>('');
-    const [searchQuery, setSearchQuery] = useState('');
-    const filteredTasks = tasks.filter(task =>
-      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.desc.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+        const [searchQuery, setSearchQuery] = useState('');
+        const filteredTasks = tasks.filter(task =>
+            !task.completed && // Exclude completed tasks
+            (task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            task.desc.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
     return (
         <SafeAreaView style={styles.background}>
@@ -51,7 +50,7 @@ const Overview = ({ navigation }) => {
                   <FlatList
                     style={styles.tasksContainer}
                     data={filteredTasks}
-                    keyExtractor={(item) => item.id} 
+                    keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                       <TaskItem
                         id={item.id}
@@ -67,10 +66,18 @@ const Overview = ({ navigation }) => {
             {/* Clear button */}
             {
                 tasks.length > 0 && (
-                    <Button title="Clear All Tasks" onPress={clearTasks} />
+                    <Button
+                      title="Clear All Tasks"
+                      onPress={clearTasks}
+                    />
                 )
             };
-
+            {
+                <Button
+                  title="View Completed Tasks"
+                  onPress={() => navigation.navigate('DoneTasks')}
+                />
+            };
         </SafeAreaView>
     );
 };

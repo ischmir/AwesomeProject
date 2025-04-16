@@ -5,6 +5,7 @@ import Overview from './app/screens/OverviewScreen.tsx';
 import TaskDetails from './app/screens/TaskDetailsScreen';
 import AddTaskScreen from './app/screens/AddTaskScreen.tsx';
 import { TaskProvider } from './app/contexts/Tasks.Context.tsx';
+import DoneTasksScreen from './app/screens/DoneTasksScreen.tsx';
 
 
 // This line initializes the stack navigator.
@@ -27,6 +28,7 @@ const App = () => {
           <Stack.Screen name="Overview" options={{ headerShown: false}} component={Overview} />
           <Stack.Screen name="Task Details" component={TaskDetails} />
           <Stack.Screen name="Add Task" component={AddTaskScreen} />
+          <Stack.Screen name="DoneTasks" component={DoneTasksScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </TaskProvider>

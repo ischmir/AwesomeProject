@@ -5,23 +5,31 @@ import { useTasks } from '../contexts/Tasks.Context';
 export const TaskItem = (props: any) => {
 
     /** Components logic */
-    const { id, title, onPressGoToDetails, task } = props;
+    const { id, title, onPressGoToDetails, completed, task } = props;
+    const { toggleTaskCompleted } = useTasks();
 
-    const { removeTask } = useTasks();
+    /** Check if task is overdue */
+    const isOverdue = new Date(task.dueDate) < new Date();
 
     return (
-        <Pressable style={styles.task} onPress={onPressGoToDetails} >
-            <View style={styles.taskItem} >
-                <Text style={styles.taskText} > {title} </Text>
-                <Text style={styles.dueDate}>Due Date: {new Date(task.dueDate).toDateString()}</Text>
+        <Pressable style={[styles.task]} onPress={onPressGoToDetails}>
+            <View style={styles.taskItem}>
+                <Text style={[styles.taskText, completed && styles.completedText, isOverdue && styles.overdueTask]}>
+                    {title}
+                </Text>
+                <Text style={[styles.dueDate]}>
+                    Due Date: {new Date(task.dueDate).toDateString()}
+                </Text>
             </View>
-            <Button title={'Done'} onPress={() => removeTask(id)} />
+            <Button
+                title={completed ? 'Undo' : 'Done'}
+                onPress={() => toggleTaskCompleted(id)}
+            />
         </Pressable>
     );
 };
 
 const styles = StyleSheet.create({
-    /** Components styles */
     task: {
         flexDirection: 'row',
         backgroundColor: '#fff',
@@ -29,15 +37,28 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         margin: 10,
-      },
+    },
+    completedTask: {
+        backgroundColor: '#d3d3d3', // Grey background for completed tasks
+    },
+    overdueTask: {
+        backgroundColor: '#ffe6e6',
+    },
     taskItem: {
         flex: 1,
         justifyContent: 'center',
-      },
+    },
     taskText: {
         fontSize: 17,
     },
-    dueDateText: {
+    completedText: {
+        textDecorationLine: 'line-through',
+        color: '#a9a9a9',
+    },
+    overdueText: {
+        color: '#ff4d4d',
+    },
+    dueDate: {
         fontSize: 14,
         color: '#666',
     },
