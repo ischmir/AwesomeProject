@@ -1,45 +1,38 @@
 import React from 'react';
-import { Button, StyleSheet, Text, Pressable, View } from 'react-native';
-import { useTasks } from '../contexts/Tasks.Context';
+import { StyleSheet, View, TextInput } from 'react-native';
 
-export const TaskItem = (props: any) => {
-
-    /** Components logic */
-    const { title, onPress } = props;
-
+export const SearchComp = ({ searchQuery, setSearchQuery }) => {
     return (
-        <View style={styles.inputContainer} >
-            {/* Input field */}
+        <View style={styles.inputContainer}>
             <TextInput
-                value={newTask}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
                 style={styles.textInput}
                 placeholder="Search for a task..."
                 placeholderTextColor="#aaa"
+                autoFocus={false}
+                keyboardType="default"
+                returnKeyType="search"
             />
-            {/* Search Function */}
-            <Button title="Search" onPress={() => {
-                const filteredTasks = tasks.filter(task => task.toLowerCase().includes(newTask.toLowerCase()));
-                navigation.navigate({ task: filteredTasks });
-            }} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    /** Components styles */
-    task: {
+    inputContainer: {
         flexDirection: 'row',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 10,
-        borderWidth: 1,
-        margin: 10,
-      },
-    taskItem: {
+        margin: 20,
+    },
+    textInput: {
         flex: 1,
-        justifyContent: 'center',
-      },
-    taskText: {
-        fontSize: 17,
+        borderWidth: 1,
+        borderColor: '#1320bf',
+        borderRadius: 6,
+        padding: 10,
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
     },
 });

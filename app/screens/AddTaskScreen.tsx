@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, SafeAreaView, Pressable } from 'react-native';
 import { useTasks } from '../contexts/Tasks.Context';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { MenuComp } from '../components/MenuComp';
 
 const AddTaskScreen = ({ navigation }) => {
     const { addTask } = useTasks();
     const [title, setTitle] = useState<string>('');
     const [desc, setDesc] = useState<string>('');
     const [dueDate, setDueDate] = useState(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showDateTimePicker, setShowDateTimePicker] = useState(true);
 
     {/* Alerts users fill out fields or adds task to the list */}
     const handleAddTask = () => {
@@ -42,14 +43,14 @@ const AddTaskScreen = ({ navigation }) => {
                     onChangeText={text => setDesc(text)}
                 />
                 {/* Set Due Date */}
-                <Button title="Select Due Date" onPress={() => setShowDatePicker(true)} />
-                    {showDatePicker && (
+                <Button title="Select Due Date" onPress={() => setShowDateTimePicker(true)} />
+                    {showDateTimePicker && (
                         <DateTimePicker
                             value={dueDate}
                             mode="date"
                             display="default"
                             onChange={(event, selectedDate) => {
-                                setShowDatePicker(false);
+                                setShowDateTimePicker(false);
                                 if (selectedDate) {
                                     setDueDate(selectedDate);
                                 }
@@ -59,8 +60,11 @@ const AddTaskScreen = ({ navigation }) => {
                 <Text style={styles.dueDateText}>Due Date: {dueDate.toDateString()}</Text>
 
                 {/* Add task button */}
-                <Button title="Add Task" onPress={handleAddTask} />
+                <Pressable style={styles.buttonAddTask} onPress={handleAddTask}>
+                    <Text style={styles.buttonAddTaskText} >Add Task</Text>
+                    </Pressable>
             </View>
+            <MenuComp />
         </SafeAreaView>
     );
 };
@@ -94,6 +98,17 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         margin: 10,
+    },
+    buttonAddTask: {
+        backgroundColor: '#1320bf',
+        borderRadius: 10,
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    buttonAddTaskText: {
+        color: '#fff',
+        fontSize: 16,
     },
 });
 

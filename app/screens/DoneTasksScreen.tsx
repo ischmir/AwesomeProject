@@ -1,10 +1,10 @@
-// View done tasksimport React from 'react';
 import React from 'react';
 import { Text, FlatList, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useTasks } from '../contexts/Tasks.Context';
 import { TaskItem } from '../components/TaskItem';
+import { MenuComp } from '../components/MenuComp';
 
-const DoneTasksScreen = ({navigation}) => {
+const DoneTasksScreen = ({ navigation }) => {
     const { tasks, toggleTaskCompleted, clearCompletedTasks } = useTasks();
 
     // Filter completed tasks
@@ -12,7 +12,6 @@ const DoneTasksScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>Completed Tasks</Text>
             {completedTasks.length === 0 ? (
                 <Text style={styles.noTasksText}>No completed tasks</Text>
             ) : (
@@ -25,9 +24,10 @@ const DoneTasksScreen = ({navigation}) => {
                             title={item.title}
                             task={item}
                             completed={item.completed}
-                            onPressGoToDetails={()=>navigation.navigate('Task Details', {task: item})
-                        }
-                        onToggleCompleted={() => toggleTaskCompleted(item.id)} // Add toggle functionality
+                            onPressGoToDetails={() =>
+                                navigation.navigate('TaskDetails', { task: item })
+                            } // Fixed syntax error
+                            onToggleCompleted={() => toggleTaskCompleted(item.id)} // Add toggle functionality
                         />
                     )}
                 />
@@ -37,6 +37,7 @@ const DoneTasksScreen = ({navigation}) => {
                 color="red"
                 onPress={clearCompletedTasks}
             />
+            <MenuComp />
         </SafeAreaView>
     );
 };
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f8f8f8',
         padding: 16,
+        marginTop: 10,
     },
     header: {
         fontSize: 24,
